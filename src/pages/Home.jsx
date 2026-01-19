@@ -59,7 +59,7 @@ const Home = () => {
           <h1>Discover Procurement Opportunities</h1>
           <p>Connect with institutions and explore RFPs, RFQs, and invitations worldwide</p>
           <p> ..........................................................................</p>
-          <p className="hero-note">Caution: This site is still in production and the documents downloaded are for testing purposes but the information is Legitimate</p>
+          <p className="hero-note">Caution: This site is still in produc and the documents downloaded are for testing purposes but the information is Legitimate</p>
           <p> ..........................................................................</p>
         </div>
 
