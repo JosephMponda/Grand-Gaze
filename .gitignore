@@ -1,5 +1,7 @@
+# =====================
 # Logs
-logs
+# =====================
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,19 +9,117 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# =====================
+# Node.js / JavaScript
+# =====================
+node_modules/
+dist/
+dist-ssr/
+build/
 *.local
+.cache/
+.vercel/
 
-# Editor directories and files
+# =====================
+# Environment variables
+# =====================
+.env
+
+# =====================
+# Python
+# =====================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+*.egg-info/
+.eggs/
+
+# =====================
+# Java / Maven / Gradle
+# =====================
+*.class
+*.jar
+*.war
+*.ear
+target/
+out/
+.gradle/
+
+# =====================
+# Ruby
+# =====================
+*.gem
+*.rbc
+.bundle/
+vendor/bundle/
+log/
+tmp/
+
+# =====================
+# Go
+# =====================
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# =====================
+# Rust
+# =====================
+target/
+**/*.rs.bk
+
+# =====================
+# IDEs & Editors
+# =====================
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
+*.iml
 *.suo
 *.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.vercel
+*.ncb
+*.user
+*.mode1v3
+*.tmproj
+*.sublime-workspace
+*.sublime-project
+
+# =====================
+# Visual Studio
+# =====================
+*.VC.db
+*.VC.opendb
+*.aps
+*.pdb
+*.idb
+*.obj
+*.ipch
+*.iobj
+*.ipdb
+
+# =====================
+# OS Generated Files
+# =====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =====================
+# Backup & Temporary Files
+# =====================
+*.bak
+*.tmp
+*.swp
+*.swo

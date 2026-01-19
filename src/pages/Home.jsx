@@ -45,6 +45,13 @@ const Home = () => {
     return colors[type] || '#6b7280';
   };
 
+  const [expandedIds, setExpandedIds] = useState([]);
+  const toggleExpand = (id) => {
+    setExpandedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  };
+  const TRUNCATE_LENGTH = 200;
+  const truncate = (text, n) => (text && text.length > n ? text.slice(0, n).trimEnd() : text);
+
   return (
     <div className="page">
       <div className="container">
@@ -72,15 +79,15 @@ const Home = () => {
             <p>Loading opportunities...</p>
           </div>
         ) : (
-          <div className="cards-grid">
-            {posts.length === 0 ? (
-              <div className="empty-state">
-                <div className="empty-icon">📋</div>
-                <h3>No opportunities found</h3>
-                <p>Try adjusting your filters or check back later</p>
-              </div>
-            ) : (
-              posts.map(post => (
+          posts.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-icon">📋</div>
+              <h3>No opportunities found</h3>
+              <p>Try adjusting your filters or check back later</p>
+            </div>
+          ) : (
+            <div className="cards-grid">
+              {posts.map(post => (
                 <div key={post._id} className="card">
                   <div className="card-header">
                     <div className="institution-info">
@@ -108,55 +115,66 @@ const Home = () => {
                     </span>
                   </div>
 
-                  <p className="card-description">{post.description}</p>
+                  <p className={"card-description" + (expandedIds.includes(post._id) ? ' expanded' : '')}>
+                    {post.description ? (expandedIds.includes(post._id) ? post.description : truncate(post.description, TRUNCATE_LENGTH)) : ''}
+                    {(!expandedIds.includes(post._id) && post.description && post.description.length > TRUNCATE_LENGTH) ? '...' : ''}
+                  </p>
 
-                  <div className="card-meta">
-                    <div className="meta-item">
-                      <span className="meta-label">Sector</span>
-                      <span className="meta-value">{post.sector}</span>
-                    </div>
-                    <div className="meta-item">
-                      <span className="meta-label">Deadline</span>
-                      <span className="meta-value">{new Date(post.deadline).toLocaleDateString()}</span>
-                    </div>
-                    {post.budget && (
-                      <div className="meta-item">
-                        <span className="meta-label">Budget</span>
-                        <span className="meta-value">{post.budget}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {post.requirements && post.requirements.length > 0 && (
-                    <div className="requirements">
-                      <h4>Requirements</h4>
-                      <ul>
-                        {post.requirements.slice(0, 3).map((req, idx) => (
-                          <li key={idx}>{req}</li>
-                        ))}
-                        {post.requirements.length > 3 && (
-                          <li className="more">+{post.requirements.length - 3} more</li>
-                        )}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div className="card-footer">
-                    {post.contactEmail && (
-                      <a href={'mailto:' + post.contactEmail} className="contact-link">
-                        ✉ {post.contactEmail}
-                      </a>
-                    )}
-                    {post.document && (
-                      <button onClick={() => downloadDocument(post.document)} className="btn-primary btn-sm">
-                        Download Document
+                  <div className="card-bottom">
+                    {post.description && post.description.length > TRUNCATE_LENGTH && (
+                      <button onClick={() => toggleExpand(post._id)} className="btn-outline btn-sm readmore-btn">
+                        {expandedIds.includes(post._id) ? 'Show less' : 'Read more'}
                       </button>
                     )}
+
+                    <div className="card-meta">
+                      <div className="meta-item">
+                        <span className="meta-label">Sector</span>
+                        <span className="meta-value">{post.sector}</span>
+                      </div>
+                      <div className="meta-item">
+                        <span className="meta-label">Deadline</span>
+                        <span className="meta-value">{new Date(post.deadline).toLocaleDateString()}</span>
+                      </div>
+                      {post.budget && (
+                        <div className="meta-item">
+                          <span className="meta-label">Budget</span>
+                          <span className="meta-value">{post.budget}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {post.requirements && post.requirements.length > 0 && (
+                      <div className="requirements">
+                        <h4>Requirements</h4>
+                        <ul>
+                          {post.requirements.slice(0, 3).map((req, idx) => (
+                            <li key={idx}>{req}</li>
+                          ))}
+                          {post.requirements.length > 3 && (
+                            <li className="more">+{post.requirements.length - 3} more</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="card-footer">
+                      {post.contactEmail && (
+                        <a href={'mailto:' + post.contactEmail} className="contact-link">
+                          ✉ {post.contactEmail}
+                        </a>
+                      )}
+                      {post.document && (
+                        <button onClick={() => downloadDocument(post.document)} className="btn-primary btn-sm">
+                          Download Document
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
+              ))}
+            </div>
+          )
         )}
       </div>
     </div>
