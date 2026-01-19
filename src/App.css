@@ -125,6 +125,15 @@ body {
   padding: 0 1rem;
 }
 
+.hero-note {
+  font-size: clamp(0.875rem, 3vw, 1.25rem);
+  font-weight: 700;
+  color: var(--danger);
+  max-width: 800px;
+  margin: 0.5rem auto 0 auto;
+  padding: 0 1rem;
+}
+
 .btn-primary {
   background-color: var(--primary);
   color: white;
